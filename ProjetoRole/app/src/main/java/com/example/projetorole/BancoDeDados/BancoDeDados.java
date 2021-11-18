@@ -12,7 +12,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
     //nome da base de dados
     public static final String NOME_BANCO_DADOS = "projeto.db";
     //verionamento do banco
-    public static final int VERSAO = 17;
+    public static final int VERSAO = 18;
 
     //Dados tabela usuario
     public static final String TABELA_USUARIO = "usuario";

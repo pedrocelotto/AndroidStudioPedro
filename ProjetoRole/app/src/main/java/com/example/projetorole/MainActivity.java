@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Estabelecimento estabelecimento = new Estabelecimento("Salz", "12.345.678/0001-90", 1, "Rua Itatiaia, 100",
                 "Bar", "pagode", "Chopp em dobro");
         estabelecimento = new Estabelecimento("Buteco", "123456789", 0,"Av brasil, 123", "Bar", "Fervo", "Drinks");
-        //estabelecimento = new Estabelecimento("Barzin", "789456123", 1, "Rua 1, 123", "Puteiro", "Garotas", "2 por 1");
 
         controleBanco.insereDadoEstabelecimento(estabelecimento);
 
