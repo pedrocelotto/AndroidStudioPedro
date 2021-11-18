@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.projetorole.model.Estabelecimento;
+
 public class EstabelecimentoDetalhe extends AppCompatActivity {
 
     @Override
@@ -14,8 +16,7 @@ public class EstabelecimentoDetalhe extends AppCompatActivity {
         setContentView(R.layout.activity_estabelecimento_detalhe);
 
         Intent recebedorInfo = getIntent();
-
-        Bundle param = recebedorInfo.getExtras();
+        Estabelecimento estabelecimento = (Estabelecimento) recebedorInfo.getSerializableExtra("estabelecimento");
 
         TextView nomeEstabelecimento = findViewById(R.id.textNome);
         TextView catEstabelicimento = findViewById(R.id.textCategoria);
@@ -24,12 +25,16 @@ public class EstabelecimentoDetalhe extends AppCompatActivity {
         TextView atracaoEstabelecimento = findViewById(R.id.textAtracao);
         TextView promocaoEstabelecimento = findViewById(R.id.textPromo);
 
-        nomeEstabelecimento.setText(param.getString("nome"));
-        catEstabelicimento.setText(param.getString("categoria"));
-        statusEstabelecimento.setText(param.getString("status"));
-        enderecoEstabelecimento.setText(param.getString("endereco"));
-        atracaoEstabelecimento.setText(param.getString("atracao"));
-        promocaoEstabelecimento.setText(param.getString("promocao"));
+        nomeEstabelecimento.setText(estabelecimento.getNome());
+        catEstabelicimento.setText(estabelecimento.getCategoria());
+        if (estabelecimento.getStatus() == 1){
+            statusEstabelecimento.setText("Aberto");
+        }else{
+            statusEstabelecimento.setText("Fechado");
+        }
+        enderecoEstabelecimento.setText(estabelecimento.getEndereco());
+        atracaoEstabelecimento.setText(estabelecimento.getAtracao());
+        promocaoEstabelecimento.setText(estabelecimento.getPromocoes());
 
 
     }

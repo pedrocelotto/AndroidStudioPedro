@@ -5,87 +5,70 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.example.projetorole.adapter.AdapterEstabelecimento;
-import com.example.projetorole.listener.RecyclerItemClickListener;
+import com.example.projetorole.BancoDeDados.ControleBanco;
 import com.example.projetorole.model.Estabelecimento;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+    ControleBanco controleBanco = new ControleBanco(this);
+    ListView lista_estab;
+    List<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        Estabelecimento estabelecimento = new Estabelecimento("Salz", "12.345.678/0001-90", 1, "Rua Itatiaia, 100",
+                "Bar", "pagode", "Chopp em dobro");
+        estabelecimento = new Estabelecimento("Buteco", "123456789", 0,"Av brasil, 123", "Bar", "Fervo", "Drinks");
+        //estabelecimento = new Estabelecimento("Barzin", "789456123", 1, "Rua 1, 123", "Puteiro", "Garotas", "2 por 1");
 
-        // Listagem de filmes (pode vir de arquivos, banco de dados etc.
-        this.criarEstabelecimento();
+        controleBanco.insereDadoEstabelecimento(estabelecimento);
 
-        // Configurar o AdapterFilme
-        AdapterEstabelecimento EstAdapterEst = new AdapterEstabelecimento(this.listaEstabelecimentos);
-
-        // Configurar RecyclerView layout
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
-        recyclerView.setAdapter(EstAdapterEst);
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView,
-               new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(getApplicationContext(), EstabelecimentoDetalhe.class);
-                        Bundle param = new Bundle();
-
-                        param.putString("nome", listaEstabelecimentos.get(position).getNome());
-                        param.putString("categoria", listaEstabelecimentos.get(position).getCategoria());
-                        if(!listaEstabelecimentos.get(position).getStatus()) {
-                            param.putString("status", "Fechado");
-                        }else{
-                            param.putString("status", "Aberto");
-                        }
-                        param.putString("endereco", listaEstabelecimentos.get(position).getEndereco());
-                        param.putString("atracao", listaEstabelecimentos.get(position).getAtracao());
-                        param.putString("promocao", listaEstabelecimentos.get(position).getPromocoes());
+        //Intent i = getIntent();
+        lista_estab = (ListView) findViewById(R.id.lista);
 
 
-                        intent.putExtras(param);
-                        startActivity(intent);
-                    }
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                       Toast.makeText(getApplicationContext(),listaEstabelecimentos.get(position).toString(), Toast.LENGTH_LONG).show();
-                    }
+        listaEstabelecimentos = controleBanco.retornaDados();
+        ArrayList<String> lugares = new ArrayList<>();
 
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        for(Estabelecimento estabelecimentoTemp : listaEstabelecimentos){
+            lugares.add(estabelecimentoTemp.toString());
+        }
 
-                    }
-        }));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, lugares);
+        Log.d("adapter", "cheguei adapter");
+        lista_estab.setAdapter(adapter);
+
+        lista_estab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Log.d("posicao", "ChegueiAqui, " + listaEstabelecimentos.get(position).toString());
+                Intent intent = new Intent(getApplicationContext(), EstabelecimentoDetalhe.class);
+                intent.putExtra("estabelecimento", (Serializable) listaEstabelecimentos.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
-    public void criarEstabelecimento() {
-        Estabelecimento novoEstab = new Estabelecimento("TATU BOLA", "Av. Itatiaia, 123", false, "Bar", "Dupla Sertaneja / PGrupo de Pagode", "OPEN de Chopp até as 22:00hrs");
-        listaEstabelecimentos.add(novoEstab);
-        novoEstab = new Estabelecimento("SALZ", "Av. Itatiaia, 321", true, "Bar","Dupla Sertaneja / PGrupo de Pagode", "OPEN de Chopp até as 22:00hrs");
-        listaEstabelecimentos.add(novoEstab);
-        novoEstab = new Estabelecimento("ZANUTIS", "Av. Itatiaia, 321", true, "Bar","Dupla Sertaneja / PGrupo de Pagode", "OPEN de Chopp até as 22:00hrs");
-        listaEstabelecimentos.add(novoEstab);
-    }
 }

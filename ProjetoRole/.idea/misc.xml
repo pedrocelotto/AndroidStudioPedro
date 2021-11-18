@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_cadastro_usuario.xml" value="0.22" />
         <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_estabelecimento.xml" value="0.3515625" />
         <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_estabelecimento_detalhe.xml" value="0.3515625" />
-        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_main.xml" value="0.3375" />
+        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_form_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/adapter_lista.xml" value="0.3515625" />
+        <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/container_components.xml" value="0.1796875" />
         <entry key="..\:/Users/Aluno/AndroidStudioProjects/ProjetoRole/app/src/main/res/layout/fragment_estabelecimento.xml" value="0.3515625" />
       </map>
     </option>

@@ -1,28 +1,46 @@
 package com.example.projetorole.model;
 
-import android.media.ImageReader;
+import java.io.Serializable;
 
-public class Estabelecimento {
+public class Estabelecimento implements Serializable {
 
+    private Integer id_estabelecimento;
     private String nome;
+    private String cnpj;
     private String endereco;
-    private Boolean status;
+    private Integer status;
     private String categoria;
     private String atracao;
     private String promocoes;
 
-    public Estabelecimento(String nomeEst, String enderecoEst, Boolean statusEst, String categoriaEst, String atracaoEst, String promoEst){
-        this.nome = nomeEst;
-        this.endereco = enderecoEst;
-        this.status = statusEst;
-        this.categoria = categoriaEst;
-        this.atracao = atracaoEst;
-        this.promocoes = promoEst;
+    String statusFim;
+
+    public Estabelecimento(String nome, String cnpj,Integer status, String endereco, String categoria, String atracao, String promocoes) {
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.endereco = endereco;
+        this.status = status;
+        this.categoria = categoria;
+        this.atracao = atracao;
+        this.promocoes = promocoes;
     }
 
     @Override
     public String toString() {
-        return "Nome: " + getNome() + " - Endereço: " + getEndereco() + " - Status: " + getStatus() + " - Categoria: " + getCategoria() + "Atrações: " + getAtracao() + "Promoções: " + getPromocoes();
+        if (getStatus() == 1){
+            statusFim = "Aberto";
+        }else if (getStatus() == 0){
+            statusFim = "Fechado";
+        }
+        return getNome() + " - Endereço: " + getEndereco() + " - Status: " + statusFim;
+    }
+
+    public void setId_estabelecimento(Integer id_estabelecimento) {
+        this.id_estabelecimento = id_estabelecimento;
+    }
+
+    public Integer getId_estabelecimento() {
+        return id_estabelecimento;
     }
 
     public String getNome() {
@@ -33,6 +51,14 @@ public class Estabelecimento {
         this.nome = nome;
     }
 
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
     public String getEndereco() {
         return endereco;
     }
@@ -41,11 +67,11 @@ public class Estabelecimento {
         this.endereco = endereco;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
